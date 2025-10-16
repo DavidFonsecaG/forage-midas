@@ -2,12 +2,19 @@ package com.jpmc.midascore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.kafka.annotation.KafkaListener;
+import com.jpmc.midascore.foundation.Transaction;
 
 @SpringBootApplication
 public class MidasCoreApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MidasCoreApplication.class, args);
+    }
+
+    @KafkaListener(topics = "test-topic", groupId = "transaction-group")
+    public void listen(Transaction transaction){
+        System.out.println("🟢 Transaction Received: " + transaction);
     }
 
 }
